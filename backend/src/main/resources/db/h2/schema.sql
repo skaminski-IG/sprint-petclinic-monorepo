@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS vaccinations (
   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   pet_id INTEGER NOT NULL,
   vaccine_name VARCHAR(80) NOT NULL,
-  vaccination_date DATE NOT NULL,
+  vaccination_date DATE,
   FOREIGN KEY (pet_id) REFERENCES pets(id) ON DELETE CASCADE
 );
 

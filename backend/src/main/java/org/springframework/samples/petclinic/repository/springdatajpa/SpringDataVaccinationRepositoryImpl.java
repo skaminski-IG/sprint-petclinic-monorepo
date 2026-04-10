@@ -14,8 +14,9 @@ public class SpringDataVaccinationRepositoryImpl implements VaccinationRepositor
 
     @Override
     public void delete(Vaccination vaccination) throws DataAccessException {
-        String vaccinationId = vaccination.getId().toString();
-        this.em.createQuery("DELETE FROM Vaccination vaccination WHERE id=" + vaccinationId).executeUpdate();
+        this.em.createQuery("DELETE FROM Vaccination vaccination WHERE id=:id")
+            .setParameter("id", vaccination.getId())
+            .executeUpdate();
         if (em.contains(vaccination)) {
             em.remove(vaccination);
         }
