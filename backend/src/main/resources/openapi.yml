@@ -25,6 +25,8 @@ tags:
     description: Endpoints related to pet types.
   - name: specialty
     description: Endpoints related to vet specialties.
+  - name: vaccination
+    description: Endpoints related to pet vaccinations.
 paths:
   /oops:
     get:
@@ -1719,6 +1721,257 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
+  /vaccinations:
+    get:
+      tags:
+        - vaccination
+      operationId: listVaccinations
+      summary: Lists vaccinations
+      description: Returns an array of vaccinations.
+      responses:
+        200:
+          description: Vaccinations found and returned.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vaccination'
+        304:
+          description: Not modified.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+        500:
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+    post:
+      tags:
+        - vaccination
+      operationId: addVaccination
+      summary: Create a vaccination
+      description: Creates a vaccination.
+      requestBody:
+        description: The vaccination
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vaccination'
+        required: true
+      responses:
+        200:
+          description: Vaccination created successfully.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vaccination'
+        304:
+          description: Not modified.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        404:
+          description: Vaccination not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        500:
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+  /vaccinations/{vaccinationId}:
+    get:
+      tags:
+        - vaccination
+      operationId: getVaccination
+      summary: Get a vaccination by ID
+      description: Returns the vaccination or a 404 error.
+      parameters:
+        - name: vaccinationId
+          in: path
+          description: The ID of the vaccination.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+      responses:
+        200:
+          description: Vaccination details found and returned.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vaccination'
+        304:
+          description: Not modified.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        404:
+          description: Vaccination not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        500:
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+    put:
+      tags:
+        - vaccination
+      operationId: updateVaccination
+      summary: Update a vaccination by ID
+      description: Returns the vaccination or a 404 error.
+      parameters:
+        - name: vaccinationId
+          in: path
+          description: The ID of the vaccination.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+      requestBody:
+        description: The vaccination
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VaccinationFields'
+        required: true
+      responses:
+        200:
+          description: Vaccination details found and returned.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vaccination'
+        304:
+          description: Not modified.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        404:
+          description: Vaccination not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        500:
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+    delete:
+      tags:
+        - vaccination
+      operationId: deleteVaccination
+      summary: Delete a vaccination by ID
+      description: Returns the vaccination or a 404 error.
+      parameters:
+        - name: vaccinationId
+          in: path
+          description: The ID of the vaccination.
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            example: 1
+      responses:
+        200:
+          description: Vaccination details found and returned.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vaccination'
+        304:
+          description: Not modified.
+          headers:
+            ETag:
+              description: An ID for this version of the response.
+              schema:
+                type: string
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        404:
+          description: Vaccination not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        500:
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
   /users:
     post:
       tags:
@@ -2166,3 +2419,48 @@ components:
           example: admin
       required:
         - name
+    VaccinationFields:
+      title: Vaccination fields
+      description: Editable fields of a pet vaccination.
+      type: object
+      properties:
+        vaccineName:
+          title: Vaccine name
+          description: The name of the vaccine.
+          type: string
+          minLength: 1
+          maxLength: 80
+          example: 'Rabies'
+        vaccinationDate:
+          title: Vaccination date
+          description: The date of the vaccination.
+          type: string
+          format: date
+          example: '2013-01-01'
+      required:
+        - vaccineName
+    Vaccination:
+      title: Vaccination
+      description: A pet vaccination record.
+      allOf:
+        - $ref: '#/components/schemas/VaccinationFields'
+        - type: object
+          properties:
+            id:
+              title: ID
+              description: The ID of the vaccination.
+              type: integer
+              format: int32
+              minimum: 0
+              example: 1
+              readOnly: true
+            petId:
+              title: Pet ID
+              description: The ID of the pet.
+              type: integer
+              format: int32
+              minimum: 0
+              example: 1
+          required:
+            - id
+            - petId

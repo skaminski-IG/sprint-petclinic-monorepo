@@ -1,6 +1,7 @@
 DROP TABLE vet_specialties IF EXISTS;
 DROP TABLE vets IF EXISTS;
 DROP TABLE specialties IF EXISTS;
+DROP TABLE vaccinations IF EXISTS;
 DROP TABLE visits IF EXISTS;
 DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
@@ -64,6 +65,14 @@ CREATE TABLE visits (
 );
 ALTER TABLE visits ADD CONSTRAINT fk_visits_pets FOREIGN KEY (pet_id) REFERENCES pets (id);
 CREATE INDEX visits_pet_id ON visits (pet_id);
+
+CREATE TABLE vaccinations (
+  id               INTEGER IDENTITY PRIMARY KEY,
+  pet_id           INTEGER NOT NULL,
+  vaccine_name     VARCHAR(80),
+  vaccination_date DATE
+);
+ALTER TABLE vaccinations ADD CONSTRAINT fk_vaccinations_pets FOREIGN KEY (pet_id) REFERENCES pets (id) ON DELETE CASCADE;
 
 CREATE  TABLE users (
   username    VARCHAR(20) NOT NULL ,

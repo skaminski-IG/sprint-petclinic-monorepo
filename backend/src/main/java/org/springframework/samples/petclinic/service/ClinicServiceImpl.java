@@ -22,7 +22,6 @@ import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +43,7 @@ public class ClinicServiceImpl implements ClinicService {
     private final VisitRepository visitRepository;
     private final SpecialtyRepository specialtyRepository;
     private final PetTypeRepository petTypeRepository;
+    private final VaccinationRepository vaccinationRepository;
 
     public ClinicServiceImpl(
         PetRepository petRepository,
@@ -51,13 +51,15 @@ public class ClinicServiceImpl implements ClinicService {
         OwnerRepository ownerRepository,
         VisitRepository visitRepository,
         SpecialtyRepository specialtyRepository,
-        PetTypeRepository petTypeRepository) {
+        PetTypeRepository petTypeRepository,
+        VaccinationRepository vaccinationRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
         this.specialtyRepository = specialtyRepository;
         this.petTypeRepository = petTypeRepository;
+        this.vaccinationRepository = vaccinationRepository;
     }
 
     @Override
@@ -235,6 +237,30 @@ public class ClinicServiceImpl implements ClinicService {
     @Transactional(readOnly = true)
     public List<Specialty> findSpecialtiesByNameIn(Set<String> names) {
         return findEntityById(() -> specialtyRepository.findSpecialtiesByNameIn(names));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Vaccination findVaccinationById(int id) throws DataAccessException {
+        return findEntityById(() -> vaccinationRepository.findById(id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<Vaccination> findAllVaccinations() throws DataAccessException {
+        return vaccinationRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void saveVaccination(Vaccination vaccination) throws DataAccessException {
+        vaccinationRepository.save(vaccination);
+    }
+
+    @Override
+    @Transactional
+    public void deleteVaccination(Vaccination vaccination) throws DataAccessException {
+        vaccinationRepository.delete(vaccination);
     }
 
     private <T> T findEntityById(Supplier<T> supplier) {
