@@ -66,6 +66,11 @@ INSERT INTO visits (pet_id, visit_date, description) VALUES
 (8, '2013-01-03', 'neutered'),
 (7, '2013-01-04', 'spayed');
 
+-- Insert Vaccinations
+INSERT INTO vaccinations (pet_id, vaccine_name, vaccination_date) VALUES
+(7, 'Rabies', '2013-01-01'),
+(8, 'Distemper', '2013-01-02');
+
 -- Insert Admin User
 INSERT INTO users (username, password, enabled) VALUES
 ('admin', '$2a$10$ymaklWBnpBKlgdMgkjWVF.GMGyvH8aDuTK.glFOaKw712LHtRRymS', TRUE);

@@ -52,6 +52,9 @@ INSERT INTO visits (pet_id, visit_date, description) SELECT 8, '2011-03-04', 'ra
 INSERT INTO visits (pet_id, visit_date, description) SELECT 8, '2009-06-04', 'neutered' WHERE NOT EXISTS (SELECT * FROM visits WHERE id=3);
 INSERT INTO visits (pet_id, visit_date, description) SELECT 7, '2008-09-04', 'spayed' WHERE NOT EXISTS (SELECT * FROM visits WHERE id=4);
 
+INSERT INTO vaccinations (pet_id, vaccine_name, vaccination_date) SELECT 7, 'Rabies', '2010-03-04' WHERE NOT EXISTS (SELECT * FROM vaccinations WHERE id=1);
+INSERT INTO vaccinations (pet_id, vaccine_name, vaccination_date) SELECT 8, 'Distemper', '2011-03-04' WHERE NOT EXISTS (SELECT * FROM vaccinations WHERE id=2);
+
 INSERT INTO users(username, password, enabled) SELECT 'admin', '$2a$10$ymaklWBnpBKlgdMgkjWVF.GMGyvH8aDuTK.glFOaKw712LHtRRymS', TRUE
 WHERE NOT EXISTS (SELECT * FROM users WHERE username='admin');
 

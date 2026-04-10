@@ -25,6 +25,7 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.model.Vaccination;
 import org.springframework.samples.petclinic.model.Visit;
 
 /**
@@ -67,4 +68,9 @@ public interface ClinicService {
 	void deleteSpecialty(Specialty specialty) throws DataAccessException;
 
     List<Specialty> findSpecialtiesByNameIn(Set<String> names) throws DataAccessException;
+
+    Vaccination findVaccinationById(int id) throws DataAccessException;
+    Collection<Vaccination> findAllVaccinations() throws DataAccessException;
+    void saveVaccination(Vaccination vaccination) throws DataAccessException;
+    void deleteVaccination(Vaccination vaccination) throws DataAccessException;
 }

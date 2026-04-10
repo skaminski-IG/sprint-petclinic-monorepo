@@ -54,6 +54,14 @@ CREATE TABLE IF NOT EXISTS visits (
   FOREIGN KEY (pet_id) REFERENCES pets(id)
 ) engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS vaccinations (
+  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  pet_id INT(4) UNSIGNED NOT NULL,
+  vaccine_name VARCHAR(80) NOT NULL,
+  vaccination_date DATE,
+  FOREIGN KEY (pet_id) REFERENCES pets(id)
+) engine=InnoDB;
+
 CREATE TABLE IF NOT EXISTS users (
   username VARCHAR(20) NOT NULL ,
   password VARCHAR(60) NOT NULL ,
